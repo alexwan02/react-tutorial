@@ -8,34 +8,167 @@ import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
+  ScrollView,
+  ListView,
   Text,
+  Image,
+  TextInput,
   View
+
 } from 'react-native';
 
-export default class ReactNativeTutorial extends Component {
-  render() {
+function getMoviesFromApiAsync(){
+  return fentch('https://facebook.github.io/react-native/movies.json')
+    .then((response) => response.json())
+    .then((responseJson) => {
+      return responseJson.movies;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+class Bananas extends Component{
+  render(){
+    let pic = {
+      uri : this.props.pic
+    };
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
+      <Image source={pic} style={{width : 193 , height : 110}}/>
+    );
+  }
+}
+
+class Blink extends Component{
+  constructor(props){
+    super(props);
+    this.state = {showText:true};
+
+    // toggle the state every second
+    setInterval(() => {
+      this.setState({showText : !this.state.showText});
+    } , 1000);
+  }
+
+  render(){
+    let display = this.state.showText ? this.props.text : ' ';
+    return (
+      <Text style={this.props.style} >{display}</Text>
+    );
+  }
+}
+
+class FlexDimensionsBasics extends Component{
+  render(){
+    return (
+      // Try removing the 'flex 1' on the parent View
+      // The parent will not have dimensions , so the children can't expand
+      // What if you add 'height : 300' instead of 'flex : 1' ?
+      <View style={{height : 100}}>
+        <View style={{flex : 1 , backgroundColor: 'powderblue'}} />
+        <View style={{flex : 2 , backgroundColor: 'skyblue'}} />
+        <View style={{flex : 3 , backgroundColor: 'steelblue'}} />
       </View>
     );
   }
 }
 
+class JustifyContentBacis extends Component {
+  render(){
+    return (
+      // Try setting `alignItems` to 'flex-start'.
+      // Try setting `justifyContent` to `flex-end`.
+      // Try setting `flexDirection` to `row`.
+      <View style={{height: 300 , flexDirection : 'row' , justifyContent : 'center' , alignItems: 'center'}}>
+        <View style={{width : 50 , height : 50 , backgroundColor: 'powderblue'}} />
+        <View style={{width : 50 , height : 50 , backgroundColor: 'skyblue'}} />
+        <View style={{width : 50 , height : 50 , backgroundColor: 'steelblue'}} />
+      </View>
+    );
+  }
+}
+
+class PizzaTranslator extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { text : ''};
+  }
+
+  render(){
+    return (
+      <View style={{padding: 10}}>
+        <TextInput
+          style={{height : 40 }}
+          placeholder="Type here to translator"
+          onChangeText={(text) => this.setState({text})}/>
+        <Text style={{padding : 10 , fontSize : 42 }}>
+          {this.state.text.split(' ').map((word) => word && '🍕').join(' ')}
+        </Text>
+
+      </View>
+    );
+  }
+}
+
+class ListViewBasics extends Component {
+  constructor(props) {
+    super(props);
+    const ds = new ListView.DataSource({rowHasChanged: (r1 , r2 ) => r1 != r2});
+    this.state = {
+      dataSource : ds.cloneWithRows([
+        'alexwan' , 'clianga' , 'wanhc' , 'lucky'
+      ])
+    }
+  }
+
+  render(){
+      return (
+        <ListView style={{height : 300}} dataSource={this.state.dataSource}
+          renderRow={(rowData) => <Text>{rowData}</Text>}/>
+      );
+  }
+}
+export default class ReactNativeTutorial extends Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <ScrollView>
+            <View style={{alignItems : 'center'}}>
+              <Bananas pic='https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg'/>
+            </View>
+            <Text style={styles.welcome}>
+              Welcome to React Native!
+            </Text>
+            <Text style={styles.instructions}>33234
+              To get started, edit index.android.js
+            </Text>
+            <Text style={styles.instructions}>
+              Double tap R on your keyboard to reload,{'\n'}
+              Shake or press menu button for dev menu
+            </Text>
+            <Blink style={[styles.instructions , styles.bigblue]} text='I love to blink and blink is so great.'/>
+            <View style={{height : 50 , flexDirection : 'row'}} >
+              <View style={{flex : 1 , height : 50 , backgroundColor: 'powderblue'}} />
+              <View style={{flex : 1 , height : 50 , backgroundColor: 'skyblue'}} />
+              <View style={{flex : 1 , height : 50 , backgroundColor: 'steelblue'}} />
+            </View>
+            <JustifyContentBacis />
+            <PizzaTranslator />
+
+        </ScrollView>
+        <ListViewBasics />
+
+      </View>
+    );
+  }
+}
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    // alignItems: 'center',
+    padding : 10 ,
     backgroundColor: '#F5FCFF',
   },
   welcome: {
@@ -48,6 +181,16 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+  image: {
+    width : 193 ,
+    height : 110 ,
+
+  } ,
+  bigblue:{
+    color : 'blue' ,
+    fontWeight : 'bold' ,
+    fontSize : 20,
+  }
 });
 
 AppRegistry.registerComponent('ReactNativeTutorial', () => ReactNativeTutorial);
