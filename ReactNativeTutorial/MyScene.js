@@ -1,5 +1,5 @@
 import React , {Component , PropTypes} from 'react';
-import {View , Text , TouchableHighlight} from 'react-native';
+import {View , Text , TouchableHighlight , TouchableNativeFeedback , TouchableOpacity} from 'react-native';
 
 export default class MyScene extends Component {
   render (){
@@ -9,13 +9,13 @@ export default class MyScene extends Component {
           Current Scene : {this.props.title}
         </Text>
 
-        <TouchableHighlight onPress={this.props.onForward} underlayColor="white">
+        <TouchableOpacity onPress={this.props.onForward}>
           <Text style={{fontSize : 15 , padding : 5}}>Tap me to load the next scene</Text>
-        </TouchableHighlight>
+        </TouchableOpacity>
 
-        <TouchableHighlight onPress={this.props.onBack} underlayColor="white" >
+        <TouchableOpacity onPress={this.props.onBack}>
           <Text style={{fontSize : 15 , padding : 5}}>Tap me to go back</Text>
-        </TouchableHighlight>
+        </TouchableOpacity>
       </View>
     );
   }

@@ -19,6 +19,7 @@ import {
 } from 'react-native';
 
 import MyScene from './MyScene';
+import Playground from './Playground';
 
 class Bananas extends Component{
   render(){
@@ -181,10 +182,17 @@ class SimpleNavigationApp extends Component{
               }}
             />
           }
-          style={{flex : 1}}
+          style={{height : 40}}
         />
 
-      <Image source={require('./img/bridge_@3x.png')}/>
+        <Image source={require('./img/bridge_@3x.png')}
+          style={{height : 200 ,
+              width : undefined ,
+              borderTopLeftRadius : 10 ,
+              borderTopRightRadius : 10 ,
+              borderBottomLeftRadius : 10 ,
+              borderBottomRightRadius : 10}} />
+        <Playground/>
       </View>
     )
   }
