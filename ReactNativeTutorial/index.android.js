@@ -10,6 +10,7 @@ import {
   StyleSheet,
   ScrollView,
   ListView,
+  Navigator,
   Text,
   Image,
   TextInput,
@@ -17,16 +18,8 @@ import {
 
 } from 'react-native';
 
-function getMoviesFromApiAsync(){
-  return fentch('https://facebook.github.io/react-native/movies.json')
-    .then((response) => response.json())
-    .then((responseJson) => {
-      return responseJson.movies;
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-}
+import MyScene from './MyScene';
+
 class Bananas extends Component{
   render(){
     let pic = {
@@ -162,7 +155,40 @@ export default class ReactNativeTutorial extends Component {
   }
 }
 
+class SimpleNavigationApp extends Component{
+  render(){
+    return (
+      <View style={styles.container}>
+        <Navigator
+          initialRoute={{ title : 'My Initial Scene' , index : 0}}
+          renderScene={(route , navigator ) =>
+            <MyScene
+              title={route.title}
+              // Function to call when a new scene should be displayed
+              onForward ={() => {
+                const nextIndex = route.index + 1 ;
+                navigator.push({
+                  title : 'Scene ' + nextIndex ,
+                  index : nextIndex ,
+                });
+              }}
 
+              // Function to call to go back to the previous scene
+              onBack={() => {
+                if(route.index > 0){
+                  navigator.pop();
+                }
+              }}
+            />
+          }
+          style={{flex : 1}}
+        />
+
+      <Image source={require('./img/bridge_@3x.png')}/>
+      </View>
+    )
+  }
+}
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -193,4 +219,4 @@ const styles = StyleSheet.create({
   }
 });
 
-AppRegistry.registerComponent('ReactNativeTutorial', () => ReactNativeTutorial);
+AppRegistry.registerComponent('SimpleNavigationApp', () => SimpleNavigationApp);
