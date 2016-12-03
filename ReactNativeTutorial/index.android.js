@@ -21,7 +21,7 @@ import {
 import MyScene from './MyScene';
 import Playground from './Playground';
 import AnimatedToturial from './AnimatedToturial';
-
+import ReboundScrollSpring from './ReboundScrollSpring';
 class Bananas extends Component{
   render(){
     let pic = {
@@ -211,6 +211,8 @@ class AnimatedApp extends Component{
   }
 }
 
+// ScrollSpring
+
 
 const styles = StyleSheet.create({
   container: {
@@ -242,4 +244,4 @@ const styles = StyleSheet.create({
   }
 });
 
-AppRegistry.registerComponent('SimpleNavigationApp', () => AnimatedApp);
+AppRegistry.registerComponent('SimpleNavigationApp', () => ReboundScrollSpring);
