@@ -13,7 +13,6 @@ var {
 } = ReactNative;
 
 var rebound = require('rebound');
-// var precomputeStyle = require('precomputeStyle');
 
 var ScrollSpring = React.createClass({
   componentWillMount(){
@@ -28,8 +27,8 @@ var ScrollSpring = React.createClass({
       onSpringUpdate: () => {
         if(!this._photo) { return }
         var v = this._scrollSpring.getCurrentValue();
-        // var newSpring = precomputeStyle({transform : [{scaleX : v } , {scaleY : v}]});
-        this._photo.setNativeProps({style : {transform : [{scaleX : v } , {scaleY : v}]}});
+        var newSpring = {style : ({transform : [{scaleX : v } , {scaleY : v}]}) };
+        this._photo.setNativeProps(newSpring);
       }
     });
 
