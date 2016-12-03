@@ -20,6 +20,7 @@ import {
 
 import MyScene from './MyScene';
 import Playground from './Playground';
+import AnimatedToturial from './AnimatedToturial';
 
 class Bananas extends Component{
   render(){
@@ -31,6 +32,7 @@ class Bananas extends Component{
     );
   }
 }
+
 
 class Blink extends Component{
   constructor(props){
@@ -196,7 +198,20 @@ class SimpleNavigationApp extends Component{
       </View>
     )
   }
+
 }
+
+
+// Animated Tutorial
+class AnimatedApp extends Component{
+  render(){
+    return (
+      <AnimatedToturial />
+    );
+  }
+}
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -227,4 +242,4 @@ const styles = StyleSheet.create({
   }
 });
 
-AppRegistry.registerComponent('SimpleNavigationApp', () => SimpleNavigationApp);
+AppRegistry.registerComponent('SimpleNavigationApp', () => AnimatedApp);
