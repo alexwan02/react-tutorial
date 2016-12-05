@@ -23,7 +23,7 @@ import Playground from './Playground';
 import AnimatedToturial from './AnimatedToturial';
 import ReboundScrollSpring from './ReboundScrollSpring';
 import NavigatorCustomize from './NavigatorCustomize';
-
+import ClearTextInput from './ClearTextInput';
 
 class Bananas extends Component{
   render(){
@@ -247,4 +247,4 @@ const styles = StyleSheet.create({
   }
 });
 
-AppRegistry.registerComponent('SimpleNavigationApp', () => NavigatorCustomize);
+AppRegistry.registerComponent('SimpleNavigationApp', () => ClearTextInput);
