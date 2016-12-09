@@ -27,6 +27,7 @@ import NavigatorCustomize from './NavigatorCustomize';
 import ClearTextInput from './ClearTextInput';
 import NavigationTutorial from './NavigationTutorial';
 import ToastAndroid from './ToastAndroid';
+import ImagePicker from './ImagePicker';
 
 
 
@@ -225,6 +226,7 @@ class NavigatorApp extends Component{
     super(props);
     this._onForward = this._onForward.bind(this);
     this._onBack = this._onBack.bind(this);
+    this._pickImage = this._pickImage.bind(this);
   }
 
   _onForward(route , navigator){
@@ -248,6 +250,22 @@ class NavigatorApp extends Component{
         // Handle the event
     });
   }
+
+  componentDidMount(){
+    // Pick Image
+    this._pickImage().done();
+  }
+
+  async _pickImage(){
+    try {
+      let uri = await ImagePicker.pickImage();
+      console.log('image uri = ' + uri);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+
   render(){
     return (
       <Navigator
@@ -257,9 +275,7 @@ class NavigatorApp extends Component{
                       // Function to call when a new scene should be displayed
                       onForward={() => this._onForward(route , navigator)}
                       // Function to call to go back to the previous scene
-                      onBack={() => this._onBack(route , navigator)}
-
-                      />
+                      onBack={() => this._onBack(route , navigator)}/>
           }
         />
     );

@@ -4,7 +4,6 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.JavaScriptModule;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.modules.toast.ToastModule;
 import com.facebook.react.uimanager.ViewManager;
 import com.reactnativetutorial.MainApplication;
 
@@ -29,7 +28,7 @@ public class AnExampleReactPackage implements ReactPackage {
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
         List<NativeModule> modules = new ArrayList<>();
-        modules.add(new ToastModule(reactContext));
+        modules.add(new ImagePickerModule(reactContext));
         return modules;
 
     }
