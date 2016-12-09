@@ -16,6 +16,7 @@ import {
   TextInput,
   View ,
   NativeModules ,
+  DeviceEventEmitter ,
 } from 'react-native';
 
 import MyScene from './MyScene';
@@ -240,6 +241,12 @@ class NavigatorApp extends Component{
       navigator.pop();
       ToastAndroid.show('_onBack', ToastAndroid.SHORT);
     }
+  }
+
+  componentWillMount(){
+    DeviceEventEmitter.addListener('keyboardWillShow' , function(e : Event){
+        // Handle the event
+    });
   }
   render(){
     return (
