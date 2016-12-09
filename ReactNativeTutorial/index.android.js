@@ -4,7 +4,7 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, { Component} from 'react';
 import {
   AppRegistry,
   StyleSheet,
@@ -14,8 +14,8 @@ import {
   Text,
   Image,
   TextInput,
-  View
-
+  View ,
+  NativeModules ,
 } from 'react-native';
 
 import MyScene from './MyScene';
@@ -25,6 +25,9 @@ import ReboundScrollSpring from './ReboundScrollSpring';
 import NavigatorCustomize from './NavigatorCustomize';
 import ClearTextInput from './ClearTextInput';
 import NavigationTutorial from './NavigationTutorial';
+import ToastAndroid from './ToastAndroid';
+
+
 
 class Bananas extends Component{
   render(){
@@ -226,6 +229,7 @@ class NavigatorApp extends Component{
                       // Function to call when a new scene should be displayed
                       onForward={() => {
                       const nextIndex = route.index + 1;
+                      ToastAndroid.show('Awesome', ToastAndroid.SHORT);
                       navigator.push({
                         title: 'Scene ' + nextIndex,
                         index: nextIndex,
