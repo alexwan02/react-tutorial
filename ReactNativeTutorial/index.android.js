@@ -220,6 +220,27 @@ class AnimatedApp extends Component{
 
 // Navigator App
 class NavigatorApp extends Component{
+  constructor(props){
+    super(props);
+    this._onForward = this._onForward.bind(this);
+    this._onBack = this._onBack.bind(this);
+  }
+
+  _onForward(route , navigator){
+    const nextIndex = route.index + 1;
+    ToastAndroid.show('_onForward', ToastAndroid.SHORT);
+    navigator.push({
+      title: 'Scene ' + nextIndex,
+      index: nextIndex,
+    });
+  }
+
+  _onBack(route , navigator){
+    if (route.index > 0) {
+      navigator.pop();
+      ToastAndroid.show('_onBack', ToastAndroid.SHORT);
+    }
+  }
   render(){
     return (
       <Navigator
@@ -227,22 +248,11 @@ class NavigatorApp extends Component{
           renderScene={(route , navigator)=>
             <MyScene title={route.title}
                       // Function to call when a new scene should be displayed
-                      onForward={() => {
-                      const nextIndex = route.index + 1;
-                      ToastAndroid.show('Awesome', ToastAndroid.SHORT);
-                      navigator.push({
-                        title: 'Scene ' + nextIndex,
-                        index: nextIndex,
-                      });
-                      }}
-
+                      onForward={() => this._onForward(route , navigator)}
                       // Function to call to go back to the previous scene
-                      onBack={() => {
-                        if (route.index > 0) {
-                          navigator.pop();
-                        }
-                      }}
-              />
+                      onBack={() => this._onBack(route , navigator)}
+
+                      />
           }
         />
     );
