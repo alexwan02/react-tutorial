@@ -28,7 +28,7 @@ import ClearTextInput from './ClearTextInput';
 import NavigationTutorial from './NavigationTutorial';
 import ToastAndroid from './ToastAndroid';
 import ImagePicker from './ImagePicker';
-
+import RCTImageView from './ImageView';
 
 
 class Bananas extends Component{
@@ -275,7 +275,9 @@ class NavigatorApp extends Component{
                       // Function to call when a new scene should be displayed
                       onForward={() => this._onForward(route , navigator)}
                       // Function to call to go back to the previous scene
-                      onBack={() => this._onBack(route , navigator)}/>
+                      onBack={() => this._onBack(route , navigator)}>
+
+            </MyScene>
           }
         />
     );
