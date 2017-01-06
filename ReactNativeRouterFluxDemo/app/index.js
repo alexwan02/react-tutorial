@@ -11,11 +11,11 @@ import GrayScreen from './GrayScreen';
 
 import BlueScreen from './BlueScreen';
 import MaizeScreen from './MaizeScreen';
-
 import GoldScreen from './GoldScreen';
 import BlackScreen from './BlackScreen';
 
 import ModalScreen from './ModalScreen';
+
 
 const TabIcon = ({selected , title}) => {
   return (
@@ -23,7 +23,7 @@ const TabIcon = ({selected , title}) => {
       {title}
     </Text>
   );
-}
+};
 const App = () => {
   return (
     <Router>
@@ -32,7 +32,7 @@ const App = () => {
         {/* Tab container */}
         <Scene key="tabbar"
           tabs={true}
-          tabBarStyle={{backgroundColor : '#ffffff'}}>
+          tabBarStyle={{backgroundColor : 'AtomAtom#ffffff'}}>
           {/* Tab and it's scenes */}
           <Scene key="osu" title="OSU" icon={TabIcon}>
             <Scene key="scarlet"
@@ -42,7 +42,7 @@ const App = () => {
             <Scene key="gray"
               component={GrayScreen}
               title="Gray"/>
-          </Scene>
+          </Scene></Scene>
 
           <Scene key="um" title="UM" icon={TabIcon}>
             <Scene key="blue"
