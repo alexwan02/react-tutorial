@@ -8,16 +8,12 @@ import {
 
 import {Actions} from 'react-native-router-flux';
 
-const ScarletScreen = () => {
+const MaizeScreen = () => {
   return (
     <View style={styles.container}>
       <Text style = {styles.welcome}
-        onPress={() => Actions.gray()}>
-        Scarlet Screen
-      </Text>
-      <Text style = {styles.welcome}
-        onPress={() => Actions.modal()}>
-        Modal Screen
+        onPress={() => Actions.blue()}>
+        Gray Screen
       </Text>
     </View>
   );
@@ -28,14 +24,14 @@ const styles = StyleSheet.create({
     flex : 1 ,
     justifyContent : 'center' ,
     alignItems : 'center' ,
-    backgroundColor : '#bb0000' ,
+    backgroundColor : '#ffeb3b' ,
   } ,
   welcome : {
     fontSize : 20 ,
-    textAlign : 'center' ,
+    textAlign : 'auto' ,
     margin : 10 ,
     color : '#ffffff'
   } ,
 });
 
-export default ScarletScreen;
+export default MaizeScreen;
