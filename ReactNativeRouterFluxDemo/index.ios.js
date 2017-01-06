@@ -12,6 +12,8 @@ import {
   View
 } from 'react-native';
 
+import App from './app';
+
 export default class ReactNativeRouterFluxDemo extends Component {
   render() {
     return (
@@ -50,4 +52,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('ReactNativeRouterFluxDemo', () => ReactNativeRouterFluxDemo);
+AppRegistry.registerComponent('ReactNativeRouterFluxDemo', () => App);
