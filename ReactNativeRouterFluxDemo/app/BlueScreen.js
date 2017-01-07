@@ -5,6 +5,7 @@ import {
   View ,
   ListView ,
   TextInput ,
+  TouchableOpacity ,
 } from 'react-native';
 
 import {Actions} from 'react-native-router-flux';
@@ -54,6 +55,15 @@ const renderHeader = (props) => (
     </View>
 )
 
+// RenderFooter add a footer to ListView
+const renderFooter = (props) => (
+  <View style={styles.footer_container}>
+    <TouchableOpacity style={styles.footer_button}
+      onPress={() => console.log('load more')}>
+      <Text style={styles.footer_text}>Load More</Text>
+    </TouchableOpacity>
+  </View>
+)
 class BlueScreen extends Component {
   constructor(){
     super();
@@ -73,7 +83,8 @@ class BlueScreen extends Component {
         dataSource={this.state.dataSource}
         renderRow={renderRow}
         renderSeparator = {renderSeparator}
-        renderHeader={renderHeader}/>
+        renderHeader={renderHeader}
+        renderFooter={renderFooter}/>
 
     )
 
@@ -136,6 +147,22 @@ const styles = StyleSheet.create({
     backgroundColor : '#ffffff' ,
     borderRadius : 2 ,
   } ,
+  footer_container : {
+    flex : 1 ,
+    padding : 8 ,
+    alignItems : 'center' ,
+    justifyContent : 'center' ,
+  } ,
+  footer_button : {
+    borderColor : '#8e8e8e' ,
+    borderWidth : StyleSheet.hairlineWidth ,
+    paddingHorizontal : 20 ,
+    paddingVertical : 10 ,
+    borderRadius : 5 ,
+  } ,
+  footer_text : {
+    color : '#8e8e8e'
+  }
 });
 
 export default BlueScreen;
