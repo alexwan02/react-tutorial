@@ -4,6 +4,7 @@ import {
   Text ,
   View ,
   ListView ,
+  TextInput ,
 } from 'react-native';
 
 import {Actions} from 'react-native-router-flux';
@@ -35,6 +36,24 @@ const renderRow = (rowData) => (
   <Row name={rowData.get('name')}
       population={rowData.get('population')}/>
 )
+
+// RenderSeparator add a separator to ListView
+{/* The rowId is passed as a prop in this functin which works well for a key
+  otherwise RN will throw a warnig */}
+const renderSeparator = (sectionId , rowId) => (
+  <View key={rowId}  style={styles.separator} />
+)
+
+// RenderHeader add a header to ListView
+
+const renderHeader = (props) => (
+    <View style={styles.header_container}>
+        <TextInput style={styles.header_input}
+          placeholder={'Search...'}
+          onChangeText={(text) => console.log('Search for ' ,  text)}/>
+    </View>
+)
+
 class BlueScreen extends Component {
   constructor(){
     super();
@@ -49,15 +68,13 @@ class BlueScreen extends Component {
 
   render(){
     return (
-      // <View style={styles.container}>
+
         <ListView style={styles.list}
         dataSource={this.state.dataSource}
-        renderRow={renderRow}/>
-        // <Text style = {styles.welcome}
-        //     onPress={() => Actions.maize()}>
-        //     Blue Screen
-        // </Text>
-      // </View>
+        renderRow={renderRow}
+        renderSeparator = {renderSeparator}
+        renderHeader={renderHeader}/>
+
     )
 
   }
@@ -87,6 +104,7 @@ const styles = StyleSheet.create({
   list : {
     flex : 1 ,
     padding : 30 ,
+    marginTop : 30 ,
     backgroundColor : 'rgb(39 , 174 , 96)' ,
   } ,
   row : {
@@ -97,7 +115,27 @@ const styles = StyleSheet.create({
   title : {
     fontSize : 20 ,
     color : 'white' ,
-  }
+  } ,
+  separator : {
+    flex : 1 ,
+    height : StyleSheet.hairlineWidth ,
+    backgroundColor : 'white' ,
+  } ,
+  header_container : {
+    flex : 1  ,
+    padding : 8 ,
+    flexDirection : 'row' ,
+    alignItems : 'center' ,
+    backgroundColor : '#c1c1c1' ,
+  } ,
+  header_input : {
+    height : 20 ,
+    flex : 1 ,
+    paddingHorizontal : 8 ,
+    fontSize : 15 ,
+    backgroundColor : '#ffffff' ,
+    borderRadius : 2 ,
+  } ,
 });
 
 export default BlueScreen;
