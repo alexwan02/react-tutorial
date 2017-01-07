@@ -22,8 +22,9 @@ const TabIcon = ({selected , title}) => {
     <Text style={{color : selected ? 'red' : 'black'}}>
       {title}
     </Text>
+
   );
-};
+}
 const App = () => {
   return (
     <Router>
@@ -32,7 +33,7 @@ const App = () => {
         {/* Tab container */}
         <Scene key="tabbar"
           tabs={true}
-          tabBarStyle={{backgroundColor : 'AtomAtom#ffffff'}}>
+          tabBarStyle={{backgroundColor : '#ffffff'}}>
           {/* Tab and it's scenes */}
           <Scene key="osu" title="OSU" icon={TabIcon}>
             <Scene key="scarlet"
@@ -42,7 +43,7 @@ const App = () => {
             <Scene key="gray"
               component={GrayScreen}
               title="Gray"/>
-          </Scene></Scene>
+          </Scene>
 
           <Scene key="um" title="UM" icon={TabIcon}>
             <Scene key="blue"
