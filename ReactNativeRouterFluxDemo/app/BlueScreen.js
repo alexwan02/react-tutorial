@@ -2,6 +2,7 @@ import React , {Component} from 'react';
 import {
   StyleSheet ,
   Text ,
+  Image ,
   View ,
   ListView ,
   TextInput ,
@@ -12,13 +13,10 @@ import {Actions} from 'react-native-router-flux';
 
 import immutable from 'immutable';
 
-const countries = immutable.fromJS([
-  {name: 'China', population: '1,393,783,836'},
-  {name: 'India', population: '1,267,401,849'},
-  {name: 'U.S.A.', population: '322,583,006'},
-  {name: 'Indonesia', population: '252,812,245'},
-  {name: 'Brazil', population: '202,033,670'}
-]);
+import people from './data/people';
+
+
+// const countries = immutable.fromJS(people);
 
 const Title = ({children}) => (
   <Text style={styles.title} onPress={() => Actions.maize()}>
@@ -26,16 +24,17 @@ const Title = ({children}) => (
   </Text>
 )
 
-const Row = ({name , population}) => (
-  <View style={styles.row}>
-    <Title>{name}</Title>
-    <Title>{population}</Title>
+const Row = (props) => (
+  <View style={styles.row_container}>
+    <Image source={{uri : props.picture.large}} style={styles.row_photo}/>
+    <Text style={styles.row_text}>
+      {`${props.name.first} ${props.name.last}`}
+    </Text>
   </View>
 )
 
 const renderRow = (rowData) => (
-  <Row name={rowData.get('name')}
-      population={rowData.get('population')}/>
+  <Row {...rowData}/>
 )
 
 // RenderSeparator add a separator to ListView
@@ -72,7 +71,7 @@ class BlueScreen extends Component {
     });
 
     this.state = {
-      dataSource : ds.cloneWithRows(countries.toArray()) ,
+      dataSource : ds.cloneWithRows(people) ,
     }
   }
 
@@ -80,11 +79,11 @@ class BlueScreen extends Component {
     return (
 
         <ListView style={styles.list}
-        dataSource={this.state.dataSource}
-        renderRow={renderRow}
-        renderSeparator = {renderSeparator}
-        renderHeader={renderHeader}
-        renderFooter={renderFooter}/>
+          dataSource={this.state.dataSource}
+          renderRow={renderRow}
+          renderSeparator = {renderSeparator}
+          renderHeader={renderHeader}
+          renderFooter={renderFooter}/>
 
     )
 
@@ -114,8 +113,10 @@ const styles = StyleSheet.create({
   } ,
   list : {
     flex : 1 ,
-    padding : 30 ,
+    paddingTop : 35 ,
+    // padding : 30 ,
     marginTop : 30 ,
+    marginBottom : 35 ,
     backgroundColor : 'rgb(39 , 174 , 96)' ,
   } ,
   row : {
@@ -134,7 +135,7 @@ const styles = StyleSheet.create({
   } ,
   header_container : {
     flex : 1  ,
-    padding : 8 ,
+    padding : 5 ,
     flexDirection : 'row' ,
     alignItems : 'center' ,
     backgroundColor : '#c1c1c1' ,
@@ -162,6 +163,22 @@ const styles = StyleSheet.create({
   } ,
   footer_text : {
     color : '#8e8e8e'
+  } ,
+  row_photo : {
+    height : 40 ,
+    width : 40 ,
+    borderRadius : 20 ,
+  } ,
+  row_text : {
+    marginLeft : 12,
+    fontSize : 16 ,
+    color : 'white' ,
+  } ,
+  row_container : {
+    flex : 1 ,
+    padding : 12 ,
+    flexDirection : 'row' ,
+    alignItems : 'center',
   }
 });
 
