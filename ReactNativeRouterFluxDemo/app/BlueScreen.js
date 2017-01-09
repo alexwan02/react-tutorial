@@ -63,16 +63,81 @@ const renderFooter = (props) => (
     </TouchableOpacity>
   </View>
 )
+
+// RenderSectionHeader add a section header to ListView
+const SectionHeader = (props) => (
+  <View style={styles.section_container}>
+    <Text style={styles.section_text} >{props.character}</Text>
+  </View>
+)
+
+const renderSectionHeader = (sectionData) => (
+  <SectionHeader {...sectionData}/>
+);
 class BlueScreen extends Component {
   constructor(){
     super();
+
+    const getSectionData = (dataBlob , sectionId) => dataBlob[sectionId];
+    const getRowData = (dataBlob , sectionId , rowId) => dataBlob[`${rowId}`];
     const ds = new ListView.DataSource({
         rowHasChanged : (r1 , r2 ) => !immutable.is(r1 , r2) ,
+        sectionHeaderHasChanged : (s1 , s2 ) => s1 != s2 ,
+        getSectionData ,
+        getRowData,
     });
 
+    const {dataBlob , sectionIds , rowIds} = this.formatData(people);
     this.state = {
-      dataSource : ds.cloneWithRows(people) ,
+      dataSource : ds.cloneWithRowsAndSections(dataBlob , sectionIds , rowIds) ,
     }
+  }
+
+  formatData(data){
+    // We're sorting by alphabetically so we need the alphabet
+    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+
+    // Need somewhere to store our data
+    const dataBlob = {} ;
+    const sectionIds = [];
+    const rowIds = [];
+    // Each section is going represent a letter in the alphabet so we loop over
+    // the alphabet.
+    for (let sectionId = 0 ; sectionId < alphabet.length ; sectionId ++){
+      // Get the character we're currently looking for
+      const currentChar = alphabet[sectionId];
+
+      // Get users whose first name starts with the current letter.
+      const users = data.filter((user) => user.name.first.toUpperCase().indexOf(currentChar) === 0)
+
+      // If there are any users who have a first name starting with the current letter
+      // then we'll add a new section otherwise we just skip over it
+      if(users.length > 0){
+        // Add a section id to our array so the ListView knows that we've got a new section
+        sectionIds.push(sectionId);
+
+        // Stores any data we would want to display in the section header , In our case we want
+        // to show the current character.
+        dataBlob[sectionId] = {character : currentChar};
+
+        // Setup a new array that we can store the row ids for this setion
+        rowIds.push([]);
+
+        // Loop over the valid users for this section
+        for(let id = 0 ; id < users.length ; id ++){
+          // Create a unique row id for the data blob that the ListView can use for
+          // reference
+          const rowId = `${sectionId}:${id}`;
+          // Push the row id to the row ids array. This is what listview will reference to
+          // pull data from our data blob.
+          rowIds[rowIds.length - 1].push(rowId);
+
+          // Store the data we care about for the row.
+          dataBlob[rowId] = users[id];
+        }
+      }
+    }
+    return {dataBlob , sectionIds , rowIds};
   }
 
   render(){
@@ -83,7 +148,8 @@ class BlueScreen extends Component {
           renderRow={renderRow}
           renderSeparator = {renderSeparator}
           renderHeader={renderHeader}
-          renderFooter={renderFooter}/>
+          renderFooter={renderFooter}
+          renderSectionHeader={renderSectionHeader}/>
 
     )
 
@@ -179,6 +245,15 @@ const styles = StyleSheet.create({
     padding : 12 ,
     flexDirection : 'row' ,
     alignItems : 'center',
+  } ,
+  section_container : {
+    flex : 1 ,
+    padding: 8 ,
+    justifyContent : 'center' ,
+    backgroundColor : '#eaeaea' ,
+  } ,
+  section_text : {
+    fontSize : 13 ,
   }
 });
 
