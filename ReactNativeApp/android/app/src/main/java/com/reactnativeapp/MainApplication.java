@@ -1,11 +1,8 @@
 package com.reactnativeapp;
 
 import android.app.Application;
-import android.util.Log;
 
 import com.facebook.react.ReactApplication;
-import cn.reactnative.modules.update.UpdatePackage;
-import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -13,6 +10,11 @@ import com.facebook.soloader.SoLoader;
 
 import java.util.Arrays;
 import java.util.List;
+
+import javax.annotation.Nullable;
+
+import cn.reactnative.modules.update.UpdateContext;
+import cn.reactnative.modules.update.UpdatePackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -28,6 +30,12 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
             new UpdatePackage()
       );
+    }
+
+    @Nullable
+    @Override
+    protected String getJSBundleFile() {
+      return UpdateContext.getBundleUrl(MainApplication.this);
     }
   };
 
