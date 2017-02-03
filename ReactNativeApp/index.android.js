@@ -39,7 +39,7 @@
      if(isFirstTime){
        Alert.alert('提示' , '这是当前版本第一次启动,是否要模拟启动失败?失败将回滚到上一版本' , [
          {text : '是' , onPress : () => {throw new Error('模拟启动失败，请重启应用')}} ,
-         {text : '否' , onPress : () => {markSuccess}},
+         {text : '否' , onPress : () => {markSuccess()}},
        ]);
      } else if(isRolledBack){
        Alert.alert('提示' , '刚刚更新失败了， 版本被回滚');
